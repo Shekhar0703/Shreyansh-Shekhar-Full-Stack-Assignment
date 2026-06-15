@@ -12,6 +12,7 @@
     "dev:api": "cd apps/api && uvicorn app.main:app --reload --port 8000",
     "dev": "npm run dev:all",
     "build": "npm run build:web",
-    "dev:all": "node scripts/dev.mjs"
+    "dev:all": "node scripts/dev.mjs",
+    "test:api": "cd apps/api && python -m unittest discover -s tests -v"
   }
 }

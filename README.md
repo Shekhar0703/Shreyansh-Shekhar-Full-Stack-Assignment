@@ -48,6 +48,14 @@ pip install -r requirements.txt
 uvicorn app.main:app --reload --port 8000
 ```
 
+Backend smoke test:
+
+```bash
+npm run test:api
+```
+
+If the backend packages are not installed yet, run `npm run setup` first.
+
 ## GitHub
 
 The repo is prepared to be committed and pushed to GitHub. Initialize or add a remote, then push your branch in the usual way.
