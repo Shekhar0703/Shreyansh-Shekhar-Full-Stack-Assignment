@@ -1,9 +1,9 @@
-export function InsightList({ insights }) {
+export function InsightList({ insights, emptyTitle = "No insights yet", emptyMessage = "Submit a prompt to populate the results panel." }) {
   if (!insights.length) {
     return (
       <div className="empty-state">
-        <h3>No insights yet</h3>
-        <p>Submit a prompt to populate the results panel.</p>
+        <h3>{emptyTitle}</h3>
+        <p>{emptyMessage}</p>
       </div>
     );
   }

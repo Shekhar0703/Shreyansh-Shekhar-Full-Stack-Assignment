@@ -74,7 +74,15 @@ export default function App() {
     return sortInsights(matched, sortMode);
   }, [debouncedSearch, insights, sortMode]);
 
+  const hasSearchFilter = debouncedSearch.trim().length > 0;
+  const emptyTitle = hasSearchFilter ? "No matching insights" : "No insights yet";
+  const emptyMessage = hasSearchFilter
+    ? "Try a different keyword or clear the search box to view all generated results."
+    : "Submit a prompt to populate the results panel.";
+
   const hasMore = response?.pagination?.hasMore ?? false;
+  const visibleCount = filteredInsights.length;
+  const totalCount = response?.pagination?.total ?? insights.length;
 
   const handleSubmit = async (formValues) => {
     const request = { ...formValues, page: 1, pageSize: PAGE_SIZE };
@@ -138,6 +146,9 @@ export default function App() {
               <div>
                 <span className="eyebrow">Insights</span>
                 <h2>Review and refine the generated output</h2>
+                <p className="results-summary">
+                  Showing {visibleCount} of {totalCount} results
+                </p>
               </div>
               <div className="toolbar">
                 <SearchBar />
@@ -145,7 +156,7 @@ export default function App() {
               </div>
             </div>
 
-            <InsightList insights={filteredInsights} />
+            <InsightList insights={filteredInsights} emptyTitle={emptyTitle} emptyMessage={emptyMessage} />
 
             <PaginationControls hasMore={hasMore} onLoadMore={handleLoadMore} isLoading={submitResult.isLoading} />
           </div>
