@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@challenge/contracts": ["../../packages/contracts/src/index.js"]
+    }
+  },
+  "include": ["src"]
+}

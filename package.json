@@ -1,0 +1,13 @@
+{
+  "name": "ai-middleware-challenge",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev:web": "npm --prefix apps/web run dev",
+    "build:web": "npm --prefix apps/web run build",
+    "dev:api": "cd apps/api && uvicorn app.main:app --reload --port 8000"
+  }
+}
