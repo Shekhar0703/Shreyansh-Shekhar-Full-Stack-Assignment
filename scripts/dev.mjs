@@ -1,17 +1,21 @@
 import { spawn } from "node:child_process";
 
-const npmCommand = process.platform === "win32" ? "npm.cmd" : "npm";
+const npmCli = process.env.npm_execpath;
+
+if (!npmCli) {
+  throw new Error("npm_execpath is not set. Run this script through npm run dev.");
+}
 
 const processes = [
   {
     name: "web",
-    command: npmCommand,
-    args: ["run", "dev:web"],
+    command: process.execPath,
+    args: [npmCli, "run", "dev:web"],
   },
   {
     name: "api",
-    command: npmCommand,
-    args: ["run", "dev:api"],
+    command: process.execPath,
+    args: [npmCli, "run", "dev:api"],
   },
 ];
 
