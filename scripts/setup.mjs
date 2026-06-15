@@ -7,7 +7,7 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const webDir = path.join(root, "apps", "web");
 const apiDir = path.join(root, "apps", "api");
 const isWindows = process.platform === "win32";
-const npmCommand = isWindows ? "npm.cmd" : "npm";
+const npmCommand = "npm";
 const pythonCommand = isWindows ? "python" : "python3";
 const venvDir = path.join(apiDir, ".venv");
 const venvPython = isWindows
@@ -15,7 +15,10 @@ const venvPython = isWindows
   : path.join(venvDir, "bin", "python");
 
 function run(command, args, cwd) {
-  const result = spawnSync(command, args, {
+  const usesWindowsNpmWrapper = isWindows && command === npmCommand;
+  const actualCommand = usesWindowsNpmWrapper ? "cmd" : command;
+  const actualArgs = usesWindowsNpmWrapper ? ["/c", command, ...args] : args;
+  const result = spawnSync(actualCommand, actualArgs, {
     cwd,
     stdio: "inherit",
     shell: false,
