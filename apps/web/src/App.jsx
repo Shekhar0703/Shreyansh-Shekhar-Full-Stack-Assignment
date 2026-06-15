@@ -33,6 +33,28 @@ function sortInsights(items, sortMode) {
   }
 }
 
+function extractErrorPayload(caughtError) {
+  if (caughtError?.data?.error || caughtError?.data?.message) {
+    return caughtError.data;
+  }
+
+  if (caughtError?.data?.detail?.error || caughtError?.data?.detail?.message) {
+    return caughtError.data.detail;
+  }
+
+  if (Array.isArray(caughtError?.data?.detail) && caughtError.data.detail.length > 0) {
+    return {
+      error: "VALIDATION_ERROR",
+      message: caughtError.data.detail[0]?.msg ?? "Invalid request",
+    };
+  }
+
+  return {
+    error: "UNKNOWN_ERROR",
+    message: caughtError?.error ?? "An unexpected error occurred",
+  };
+}
+
 export default function App() {
   const dispatch = useAppDispatch();
   const { insights, status, error, response, activeRequest } = useAppSelector((state) => state.session);
@@ -63,11 +85,7 @@ export default function App() {
       const result = await submitPrompt(request).unwrap();
       dispatch(requestSucceeded({ request, response: result, append: false }));
     } catch (caughtError) {
-      const payload = caughtError?.data?.detail ?? {
-        error: "UNKNOWN_ERROR",
-        message: caughtError?.error ?? "An unexpected error occurred",
-      };
-      dispatch(requestFailed(payload));
+      dispatch(requestFailed(extractErrorPayload(caughtError)));
     }
   };
 
@@ -82,11 +100,7 @@ export default function App() {
       const result = await submitPrompt(request).unwrap();
       dispatch(requestSucceeded({ request, response: result, append: true }));
     } catch (caughtError) {
-      const payload = caughtError?.data?.detail ?? {
-        error: "UNKNOWN_ERROR",
-        message: caughtError?.error ?? "An unexpected error occurred",
-      };
-      dispatch(requestFailed(payload));
+      dispatch(requestFailed(extractErrorPayload(caughtError)));
     }
   };
 
