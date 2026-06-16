@@ -78,8 +78,9 @@ packages/
 ## Frontend behavior
 ### Validation
 - The submit button is disabled until the prompt and inputs are valid.
-- The frontend validation matches the backend clarification rule:
-  - prompts shorter than **5 characters** remain disabled.
+- The frontend uses schema validation (Zod) to prevent invalid requests from being sent.
+- If the backend determines the prompt is unclear, it returns `NEEDS_CLARIFICATION` and the UI displays the backend message.
+
 
 ### Response handling
 - **SUCCESS**: shows insights table
