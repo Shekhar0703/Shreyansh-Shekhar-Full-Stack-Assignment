@@ -116,11 +116,11 @@ export default function App() {
     <main className="shell">
       <section className="hero panel">
         <div>
-          <span className="eyebrow">AI middleware challenge</span>
-          <h1>Structured prompts, validated flows, and paginated insights.</h1>
+          <span className="eyebrow">Middleware Insight Studio</span>
+          <h1>Prompt validation, structured results, and paginated insights.</h1>
           <p>
-            A React client with RTK Query, debounced search, client-side sorting, and backend-driven
-            validation states.
+            A React client that sends validated prompts to a middleware API, then renders structured insights with
+            debounced search, sorting, and backend-driven pagination.
           </p>
         </div>
         <div className="hero-stats">

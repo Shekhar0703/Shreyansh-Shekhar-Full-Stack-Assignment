@@ -44,6 +44,7 @@ button {
   border-radius: 24px;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.28);
   backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
 }
 
 .hero {
@@ -133,7 +134,28 @@ button {
   border-radius: 14px;
   padding: 14px 16px;
   color: #f5f7fb;
-  background: rgba(255, 255, 255, 0.03);
+  background: rgba(255, 255, 255, 0.04);
+  outline: none;
+}
+
+/* Make dropdowns more visually distinct (text + menu contrast) */
+.field select {
+  appearance: none;
+  background-color: rgba(255, 255, 255, 0.06);
+  border-color: rgba(155, 199, 255, 0.35);
+}
+
+.field select:focus,
+.field input:focus,
+.field textarea:focus {
+  border-color: rgba(155, 199, 255, 0.7);
+  box-shadow: 0 0 0 3px rgba(155, 199, 255, 0.18);
+}
+
+/* Improve option readability (browser support varies) */
+.field select option {
+  background: #0b1220;
+  color: #f5f7fb;
 }
 
 .field textarea {
@@ -285,3 +307,4 @@ tr:last-child td {
     display: grid;
   }
 }
+
